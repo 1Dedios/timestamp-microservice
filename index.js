@@ -9,6 +9,14 @@ app.get("/", (req, res) => {
   res.sendFile(absolutePath);
 });
 
+app.get("/api/:date?", (req, res) => {
+  // json object with unix and utc keys of given date parameter
+});
+
+app.get("/api/", (req, res) => {
+  // json object with unix and utc keys of current date and time
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
