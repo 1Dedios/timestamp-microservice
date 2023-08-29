@@ -18,7 +18,6 @@ app.get("/api/:date?", (req, res) => {
     Date.UTC(localDate.getFullYear(), localDate.getMonth(), localDate.getDate())
   );
   const utcDateAsString = utcDate.toUTCString();
-  console.log(utcDate.toUTCString());
 
   if (!dateParam) {
     let currentTime = new Date();
@@ -38,6 +37,17 @@ app.get("/api/:date?", (req, res) => {
   res.json({ unix: unixTime, utc: utcDateAsString });
 });
 
+app.get("/api/:timestamp", (req, res) => {
+  // 1451001600000;
+  const param = parseInt(req.params.timestamp);
+  const utcParamTime = new Date(param);
+  console.log(utcParamTime);
+  const utcParamTimeString = utcParamTime.toUTCString();
+  console.log(utcParamTimeString);
+
+  res.json({ unix: param, utc: utcParamTimeString });
+});
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Timestamp Microservice app listening on port ${port}`);
 });
