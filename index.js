@@ -9,12 +9,19 @@ app.get("/", (req, res) => {
   res.sendFile(absolutePath);
 });
 
+// the question mark after the date parameter makes that parameter optional so /api should still work
 app.get("/api/:date?", (req, res) => {
-  // json object with unix and utc keys of given date parameter
-});
+  const dateParam = req.params.date;
+  const localDate = new Date(dateParam);
+  const unixTime = Math.floor(localDate.getTime() / 1000);
 
-app.get("/api/", (req, res) => {
-  // json object with unix and utc keys of current date and time
+  if (!dateParam) {
+    let currentTime = new Date();
+    let unixTime = Math.floor(currentTime.getTime() / 1000);
+
+    res.json({ unix: unixTime, utc: "null" });
+  }
+  res.json({ unix: unixTime, utc: "null" });
 });
 
 app.listen(port, () => {
