@@ -21,6 +21,7 @@ app.get("/api/:date?", (req, res) => {
 
     res.json({ unix: unixTime, utc: "null" });
   }
+
   res.json({ unix: unixTime, utc: "null" });
 });
 
