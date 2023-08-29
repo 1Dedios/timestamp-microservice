@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 let absolutePath = __dirname + "/src/index.html";
 
-app.use("/public", express.static(__dirname + "/public"));
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.sendFile(absolutePath);
