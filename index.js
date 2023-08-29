@@ -14,6 +14,11 @@ app.get("/api/:date?", (req, res) => {
   const dateParam = req.params.date;
   const localDate = new Date(dateParam);
   const unixTime = Math.floor(localDate.getTime() / 1000);
+  const utcDate = new Date(
+    Date.UTC(localDate.getFullYear(), localDate.getMonth(), localDate.getDate())
+  );
+  const utcDateAsString = utcDate.toUTCString();
+  console.log(utcDate.toUTCString());
 
   if (!dateParam) {
     let currentTime = new Date();
@@ -22,7 +27,7 @@ app.get("/api/:date?", (req, res) => {
     res.json({ unix: unixTime, utc: "null" });
   }
 
-  res.json({ unix: unixTime, utc: "null" });
+  res.json({ unix: unixTime, utc: utcDateAsString });
 });
 
 app.listen(port, () => {
