@@ -39,8 +39,9 @@ app.get("/api/:date?", (req, res) => {
 
 app.get("/api/:timestamp", (req, res) => {
   // 1451001600000;
-  const param = parseInt(req.params.timestamp);
-  const utcParamTime = new Date(param);
+  const param = req.params.timestamp;
+  console.log(param);
+  const utcParamTime = new Date(parseInt(param, 10));
   console.log(utcParamTime);
   const utcParamTimeString = utcParamTime.toUTCString();
   console.log(utcParamTimeString);
