@@ -19,6 +19,10 @@ app.get("/api/:date?", (req, res) => {
   );
   const utcDateAsString = utcDate.toUTCString();
 
+  if (Number.isNaN(dateParam)) {
+    res.json({ error: "Invalid Date" });
+  }
+
   if (!dateParam) {
     let currentTime = new Date();
     let unixTime = Math.floor(currentTime.getTime() / 1000);
@@ -37,16 +41,15 @@ app.get("/api/:date?", (req, res) => {
   res.json({ unix: unixTime, utc: utcDateAsString });
 });
 
+// why doesn't the code below work?
 app.get("/api/:timestamp", (req, res) => {
   // 1451001600000;
   const param = req.params.timestamp;
-  console.log(param);
-  const utcParamTime = new Date(parseInt(param, 10));
-  console.log(utcParamTime);
+  const paramInMilliSeconds = parseInt(param, 10) * 1000;
+  const utcParamTime = new Date(paramInMilliSeconds);
   const utcParamTimeString = utcParamTime.toUTCString();
-  console.log(utcParamTimeString);
 
-  res.json({ unix: param, utc: utcParamTimeString });
+  res.json({ unix: parseInt(param), utc: utcParamTimeString });
 });
 
 app.listen(port, () => {
